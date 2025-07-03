@@ -1,0 +1,47 @@
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+  <h2 style="margin: 0;">🧱 <strong>Product List</strong></h2>
+  <button (click)="goToAdd()" style="
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  ">➕ Add Product</button>
+</div>
+
+<div *ngIf="loading">Loading...</div>
+
+<table *ngIf="!loading" style="
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+">
+  <thead style="background-color: #f4f4f4;">
+    <tr>
+      <th style="padding: 12px;">🖼</th>
+      <th style="padding: 12px; text-align: left;">SKU</th>
+      <th style="padding: 12px; text-align: left;">Name</th>
+      <th style="padding: 12px; text-align: left;">Price (₹)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let product of products"
+      (click)="goToProduct(product.id!)"
+      style="cursor: pointer; border-bottom: 1px solid #eee;"
+    >
+      <td style="padding: 12px;">
+        <img
+          *ngIf="product.images?.length"
+          [src]="product.images[0]"
+          alt="Missing"
+          style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;"
+        />
+      </td>
+      <td style="padding: 12px;">{{ product.sku }}</td>
+      <td style="padding: 12px;">{{ product.name }}</td>
+      <td style="padding: 12px;">₹{{ product.price }}</td>
+    </tr>
+  </tbody>
+</table>

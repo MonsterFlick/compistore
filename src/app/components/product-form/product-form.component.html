@@ -1,0 +1,85 @@
+<h2 style="text-align: center; margin-bottom: 24px;">➕ Add New Product</h2>
+
+<div style="max-width: 600px; margin: 0 auto;">
+
+  <div style="margin-bottom: 20px;">
+    <button (click)="router.navigate(['/'])" style="
+      padding: 8px 16px;
+      background-color: #555;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    ">🔙 Back to Product List</button>
+  </div>
+
+
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+ 
+    <label>
+      <strong>SKU:</strong>
+      <input
+        [(ngModel)]="product.sku"
+        name="sku"
+        type="text"
+        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
+        placeholder="e.g., SKU12345"
+      />
+    </label>
+
+
+    <label>
+      <strong>Name:</strong>
+      <input
+        [(ngModel)]="product.name"
+        name="name"
+        type="text"
+        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
+        placeholder="Product Name"
+      />
+    </label>
+
+
+    <label>
+      <strong>Price (₹):</strong>
+      <input
+        [(ngModel)]="product.price"
+        name="price"
+        type="number"
+        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
+        placeholder="Price in ₹"
+      />
+    </label>
+
+
+    <label>
+      <strong>Image URLs (comma-separated):</strong>
+      <textarea
+        [(ngModel)]="imageInput"
+        name="images"
+        rows="3"
+        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"
+        placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg"
+      ></textarea>
+    </label>
+
+
+    <div *ngIf="imageInput" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px;">
+      <div *ngFor="let url of imageInput.split(',')" style="border: 1px solid #ccc; border-radius: 4px; padding: 4px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; background: #f9f9f9;">
+        <img [src]="url.trim()" alt="preview" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+      </div>
+    </div>
+  </div>
+
+
+  <div style="text-align: right; margin-top: 24px;">
+    <button (click)="addProduct()" style="
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    ">✅ Add Product</button>
+  </div>
+</div>

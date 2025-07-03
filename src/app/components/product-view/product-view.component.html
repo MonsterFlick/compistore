@@ -1,0 +1,128 @@
+<h2 style="text-align: center; margin-bottom: 20px;">Edit Product</h2>
+
+<div *ngIf="product" style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fdfdfd;">
+  <form (ngSubmit)="saveProduct()" #productForm="ngForm" style="display: flex; flex-direction: column; gap: 16px;">
+    <button (click)="goBack()" style="
+    margin-top: 20px;
+    padding: 8px 16px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  ">
+    🔙 Back to Product List
+  </button>
+
+    <div>
+      <label for="sku" style="display: block; font-weight: 600;">SKU</label>
+      <input
+        id="sku"
+        name="sku"
+        type="text"
+        [(ngModel)]="product.sku"
+        required
+        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+      />
+    </div>
+
+
+    <div>
+      <label for="name" style="display: block; font-weight: 600;">Name</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        [(ngModel)]="product.name"
+        required
+        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+      />
+    </div>
+
+
+    <div>
+      <label for="price" style="display: block; font-weight: 600;">Price</label>
+      <input
+        id="price"
+        name="price"
+        type="number"
+        [(ngModel)]="product.price"
+        required
+        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"
+      />
+    </div>
+
+<div>
+  <label style="display: block; font-weight: 600;">Image URLs</label>
+  <div *ngFor="let url of product.images; let i = index" style="margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+    <input
+      type="text"
+      [(ngModel)]="product.images[i]"
+      name="image{{i}}"
+      style="flex: 1; padding: 6px; border: 1px solid #aaa; border-radius: 4px;"
+    />
+    <button type="button" (click)="removeImage(i)" style="background-color: #ff4d4d; border: none; color: white; padding: 6px 10px; border-radius: 4px;">❌</button>
+  </div>
+
+  <button
+    type="button"
+    (click)="addImageField()"
+    style="padding: 6px 12px; margin-top: 8px; border: 1px solid #4CAF50; background: #eaffea; border-radius: 4px;"
+  >
+    ➕ Add Image URL
+  </button>
+
+
+</div>
+
+
+<h3 style="margin-top: 16px;">Image Previews</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 16px;">
+  <div
+    *ngFor="let url of product.images"
+    (click)="openPreview(url)"
+    style="
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f9f9f9;
+      padding: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    "
+  >
+    <img
+      [src]="url"
+      alt="Preview"
+      style="max-width: 100%; max-height: 100%; object-fit: contain;"
+    />
+  </div>
+</div>
+
+
+<div
+  *ngIf="selectedImage"
+  class="modal-overlay"
+  (click)="closePreview()"
+>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <img [src]="selectedImage" alt="Full Preview" />
+    <button class="close-btn" (click)="closePreview()">❌</button>
+  </div>
+</div>
+
+
+
+
+
+
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button type="submit" style="padding: 8px 16px; background-color: #4CAF50; color: white; border: none; border-radius: 4px;">💾 Save</button>
+      <button type="button" (click)="deleteProduct()" style="padding: 8px 16px; background-color: #e74c3c; color: white; border: none; border-radius: 4px;">🗑 Delete</button>
+    </div>
+
+  </form>
+</div>
